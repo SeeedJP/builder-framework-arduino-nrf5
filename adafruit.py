@@ -72,13 +72,22 @@ machine_flags = [
     "-mcpu=%s" % board.get("build.cpu"),
 ]
 
+if variant == "Seeed_Wio_BG770A":
+    env.Append(
+        CFLAGS=["-std=gnu17"],
+        CXXFLAGS=["-std=gnu++20"]
+    )
+else:
+    env.Append(
+        CFLAGS=["-std=gnu11"],
+        CXXFLAGS=["-std=gnu++11"]
+    )
+
 env.Append(
     ASFLAGS=machine_flags,
     ASPPFLAGS=[
         "-x", "assembler-with-cpp",
     ],
-
-    CFLAGS=["-std=gnu11"],
 
     CCFLAGS=machine_flags + [
         "-Ofast",
@@ -92,7 +101,6 @@ env.Append(
     CXXFLAGS=[
         "-fno-rtti",
         "-fno-exceptions",
-        "-std=gnu++11",
         "-fno-threadsafe-statics"
     ],
 
